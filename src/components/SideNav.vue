@@ -2,11 +2,15 @@
   <div class="sidenav border border-dark">
     <img src="../assets/index.png">
     <a href="#" id="studentsA">TeilnehmerInnen</a>
-    <div id="dropdownStudentsContent">
+    <div id="studentsDropdown">
       <a href="">Anzeigen</a>
       <a href="">Hinzufügen</a>
     </div>
-    <a href="#" id="dropdownTrainers">TrainerInnen</a>
+    <a href="#" id="trainersA">TrainerInnen</a>
+    <div id="trainersDropdown">
+      <a href="">Anzeigen</a>
+      <a href="">Hinzufügen</a>
+    </div>
     <div>
 
     </div>
@@ -14,30 +18,27 @@
 </template>
 
 <script>
-export default {
-  name: "SideNav"
-}
+
 </script>
 
 <style scoped>
-/* The side navigation menu */
+
 .sidenav {
-  height: 100%; /* 100% Full-height */
-  width: 250px; /* 0 width - change this with JavaScript */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Stay on top */
-  top: 0; /* Stay at the top */
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
   left: 0;
-  overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 10px; /* Place content 60px from the top */
-  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+  overflow-x: hidden;
+  padding-top: 10px;
+  transition: 0.5s;
   margin-left: 10px;
   background-color: black;
 
 
 }
 
-/* The navigation menu links */
 .sidenav a {
   padding: 8px 8px 8px 32px;
   text-decoration: none;
@@ -54,10 +55,23 @@ export default {
   margin-right: auto;
 }
 
-#dropdownStudentsContent {
-  padding-left: 30px;
+#studentsA:hover + #studentsDropdown  {
+  display: block;
 }
-#dropdownStudentsContent a {
+
+#trainersA:hover + #trainersDropdown  {
+  display: block;
+}
+
+#studentsDropdown:hover, #trainersDropdown:hover {
+  display: block;
+}
+
+#studentsDropdown, #trainersDropdown {
+  padding-left: 30px;
+  display: none;
+}
+#studentsDropdown a, #trainersDropdown a {
   font-size: 120%;
 }
 
