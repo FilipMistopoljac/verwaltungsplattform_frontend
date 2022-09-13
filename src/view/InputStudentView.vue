@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: "NavigationBar"
+  name: "InputStudentView"
 }
 </script>
 
