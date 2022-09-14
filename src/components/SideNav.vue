@@ -8,8 +8,8 @@
     </div>
     <a href="#" id="trainersA">TrainerInnen</a>
     <div id="trainersDropdown">
-      <a href="">Anzeigen</a>
-      <a href="">Hinzufügen</a>
+      <router-link to="/StudentTableView">Anzeigen</router-link>
+      <router-link to="/InputStudentView">Hinzufügen</router-link>
     </div>
     <div>
 
