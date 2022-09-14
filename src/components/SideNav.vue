@@ -3,8 +3,8 @@
     <img src="../assets/index.png">
     <a href="#" id="studentsA">TeilnehmerInnen</a>
     <div id="studentsDropdown">
-      <a href="">Anzeigen</a>
-      <a href="">Hinzufügen</a>
+      <router-link to="/StudentTableView">Anzeigen</router-link>
+      <router-link to="/InputStudentView">Hinzufügen</router-link>
     </div>
     <a href="#" id="trainersA">TrainerInnen</a>
     <div id="trainersDropdown">

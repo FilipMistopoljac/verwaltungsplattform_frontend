@@ -5,14 +5,19 @@ Vue.use(VueRouter)
 
 const routes = [
     {
-        path: '',
-        name: '',
-        component: ''
+        path: '/StudentTableView',
+        name: 'StudentTableView',
+        component: ()=>import("../view/StudentTableView")
     },
     {
-        path: '',
-        name: '',
-        component: ''
+        path: '/FrontPage',
+        name: 'FrontPage',
+        component: ()=>import("../view/FrontPage")
+    },
+    {
+        path: '/InputStudentView',
+        name: 'InputStudentView',
+        component: ()=>import("../view/InputStudentView")
     }
 ]
 
