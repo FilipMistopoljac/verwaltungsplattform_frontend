@@ -18,6 +18,16 @@ const routes = [
         path: '/InputStudentView',
         name: 'InputStudentView',
         component: ()=>import("../view/InputStudentView")
+    },
+    {
+        path: '/InputTrainerView',
+        name: 'InputTrainerView',
+        component: ()=>import("../view/InputTrainerView")
+    },
+    {
+        path: '/TrainerTableView',
+        name: 'TrainerTableView',
+        component: ()=>import("../view/TrainerTableView")
     }
 ]
 
