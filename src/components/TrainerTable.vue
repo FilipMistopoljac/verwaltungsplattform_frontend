@@ -5,7 +5,6 @@
       <caption>Liste der Trainer</caption>
       <thead>
       <tr>
-        <th scope="col">ID</th>
         <th scope="col">Vorname</th>
         <th scope="col">Nachname</th>
         <th scope="col">E-Mail</th>
@@ -17,39 +16,33 @@
       </thead>
 
       <tbody>
-
-      <tr v-for="(trainer,i) in trainersList" :key="i" ref="tableRowRef">
-        <th scope="row">{{trainer.id}}</th>
-        <td>{{trainer.firstName}}</td>
-        <td>{{trainer.lastName}}</td>
-        <td>{{trainer.email}}</td>
-        <td>{{trainer.address}}</td>
-        <td>{{trainer.employmentType}}</td>
-        <td>{{trainer.pay}}</td>
-        <td>{{trainer.category}}</td>
-        <td>
-          <button @click="deleteTrainer(trainer.id)">Löschen</button>
-        </td>
-        <td>
-          <button @click="toggleEdit(trainer.id)">Bearbeiten</button>
-        </td>
-      </tr>
-
-      <tr v-if="editOn">
-        <th scope="row">test</th>
-        <td>test</td>
-        <td>test</td>
-        <td>
-          <button @click="deleteTrainer(trainer.id)">Löschen</button>
-        </td>
-        <td>
-          <button @click="toggleEdit(trainer.id)">Bearbeiten</button>
-        </td>
-      </tr>
+        <tr v-for="(trainer,i) in trainersList" :key="i" ref="tableRowRef">
+          <td v-if="!editOn">{{trainer.lastName}}</td>
+          <td v-else><input type="text" :value="trainer.lastName"></td>
+          <td v-if="!editOn">{{trainer.firstName}}</td>
+          <td v-else><input type="text" :value="trainer.firstName"></td>
+          <td v-if="!editOn">{{trainer.email}}</td>
+          <td v-else><input type="text" :value="trainer.email"></td>
+          <td v-if="!editOn">{{trainer.address}}</td>
+          <td v-else><input type="text" :value="trainer.address"></td>
+          <td v-if="!editOn">{{trainer.employmentType}}</td>
+          <td v-else><input type="text" :value="trainer.employmentType"></td>
+          <td v-if="!editOn">{{trainer.pay}}</td>
+          <td v-else><input type="text" :value="trainer.pay"></td>
+          <td v-if="!editOn">{{trainer.category}}</td>
+          <td v-else><input type="text" :value="trainer.category"></td>
+          <td>
+            <button @click="toggleEdit(trainer.id)" class="btn btn-primary">Bearbeiten</button>
+          </td>
+          <td>
+            <button @click="deleteTrainer(trainer.id)" class="btn btn-danger">Löschen</button>
+          </td>
+        </tr>
 
       </tbody>
 
     </table>
+
   </div>
 
 </template>
@@ -77,13 +70,7 @@ export default {
     },
     toggleEdit(trainerId) {
 
-      if (this.editOn == false){
-        this.editOn = true;
-      } else {
-        this.editOn = false;
-      }
-
-      console.log(this.$refs['tableRowRef'][trainerId-1].innerHTML);
+      this.editOn = this.editOn == false;
       console.log(trainerId);
 
     },

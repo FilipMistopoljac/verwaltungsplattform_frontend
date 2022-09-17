@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button v-on:click="loadList">Liste laden</button>
+    <button v-on:click="loadListStudent">Liste laden</button>
   </div>
 
 </template>
@@ -12,7 +12,7 @@ export default {
     studentsList:"",
   }),
   methods: {
-    async loadList() {
+    async loadListStudent() {
       try{
         let apiUrl = 'localhost:8080/api/v1/student/get';
         let response = await this.axios.get(apiUrl);

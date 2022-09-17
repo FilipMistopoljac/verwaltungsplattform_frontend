@@ -24,17 +24,20 @@
           <td></td>
           <td></td>
           <td>
-            <button @click="toggleEdit(student.id)" class="btn btn-primary">Bearbeiten</button>
+            <button v-if="!editOn" @click="toggleEdit(student.id)" class="btn btn-primary">Bearbeiten</button>
+            <button v-else @click="editStudent(student.id)" class="btn btn-primary">Speichern</button>
           </td>
           <td>
             <button @click="deleteStudent(student.id)" class="btn btn-danger">Löschen</button>
           </td>
         </tr>
+
       </tbody>
 
     </table>
 
   </div>
+
 </template>
 
 <script>
