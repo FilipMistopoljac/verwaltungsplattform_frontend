@@ -87,6 +87,17 @@ export default new Vuex.Store({
                 console.log(err)
             }
         },
+        async getTrainer(trainerId) {
+            try{
+                let apiUrl = 'http://localhost:8080/api/trainer/get/' + trainerId;
+                let response = await this.axios.get(apiUrl);
+                console.log(response);
+                this.trainerData = response.data;
+                console.log(this.trainerData);
+            } catch (err){
+                console.log(err)
+            }
+        },
         async deleteTrainer(trainerId) {
             try{
                 let apiUrl = 'http://localhost:8080/api/trainer/delete/' + trainerId;
