@@ -42,8 +42,10 @@ import axios from "axios";
 export default {
   name: "EditWindowStudent",
   data: () => ({
-    firstName: "test",
-    lastName: ""
+    studentsList: "",
+    firstName: "",
+    lastName: "",
+    studentData: ""
   }),
 
   methods: {
@@ -58,8 +60,21 @@ export default {
         console.log(err)
       }
     },
+    async getStudent(studentId) {
+      try{
+        let apiUrl = 'http://localhost:8080/api/student/get/' + studentId;
+        let response = await this.axios.get(apiUrl);
+        console.log(response);
+        this.studentData = response.data;
+        console.log(this.studentData);
+      } catch (err){
+        console.log(err)
+      }
+    },
     async editStudent(studentId) {
       try{
+        this.firstName = this.studentsList[studentId].id;
+        this.lastName = "test";
         let apiUrl = 'http://localhost:8080/api/student/put/' + studentId;
         await axios.put(apiUrl, {
           id: studentId,
@@ -71,7 +86,11 @@ export default {
         console.log(err)
       }
       console.log(studentId);
+      console.log(this.firstName);
     }
+  },
+  mounted() {
+    this.getStudent(3);
   }
 
 }

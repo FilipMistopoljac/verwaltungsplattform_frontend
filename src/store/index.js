@@ -38,6 +38,17 @@ export default new Vuex.Store({
                 console.log(err)
             }
         },
+        async getStudent(studentId) {
+            try{
+                let apiUrl = 'http://localhost:8080/api/student/get/' + studentId;
+                let response = await this.axios.get(apiUrl);
+                console.log(response);
+                this.studentData = response.data;
+                console.log(this.studentData);
+            } catch (err){
+                console.log(err)
+            }
+        },
         async deleteStudent(studentId) {
             try{
                 let apiUrl = 'http://localhost:8080/api/student/delete/' + studentId;
