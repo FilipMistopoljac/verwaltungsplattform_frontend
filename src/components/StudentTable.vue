@@ -16,10 +16,10 @@
 
       <tbody>
         <tr v-for="(student,i) in studentsList" :key="i" ref="tableRowRef">
-          <td v-if="!editOn">{{student.lastName}}</td>
-          <td v-else><input type="text" :value="student.lastName"></td>
-          <td v-if="!editOn">{{student.firstName}}</td>
-          <td v-else><input type="text" :value="student.firstName"></td>
+          <td>{{student.lastName}}</td>
+
+          <td>{{student.firstName}}</td>
+
           <td></td>
           <td></td>
           <td></td>
@@ -81,8 +81,9 @@ export default {
       try{
         let apiUrl = 'http://localhost:8080/api/student/put/' + studentId;
         await axios.put(apiUrl, {
-          firstName: this.firstName,
-          lastName: this.lastName
+          id: studentId,
+          firstName: this.studentsList[studentId].firstName,
+          lastName: this.studentsList[studentId].lastName
         });
         window.location.reload();
       } catch (err){

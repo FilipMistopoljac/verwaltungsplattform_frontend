@@ -17,20 +17,13 @@
 
       <tbody>
         <tr v-for="(trainer,i) in trainersList" :key="i" ref="tableRowRef">
-          <td v-if="!editOn">{{trainer.lastName}}</td>
-          <td v-else><input type="text" :value="trainer.lastName"></td>
-          <td v-if="!editOn">{{trainer.firstName}}</td>
-          <td v-else><input type="text" :value="trainer.firstName"></td>
-          <td v-if="!editOn">{{trainer.email}}</td>
-          <td v-else><input type="text" :value="trainer.email"></td>
-          <td v-if="!editOn">{{trainer.address}}</td>
-          <td v-else><input type="text" :value="trainer.address"></td>
-          <td v-if="!editOn">{{trainer.employmentType}}</td>
-          <td v-else><input type="text" :value="trainer.employmentType"></td>
-          <td v-if="!editOn">{{trainer.pay}}</td>
-          <td v-else><input type="text" :value="trainer.pay"></td>
-          <td v-if="!editOn">{{trainer.category}}</td>
-          <td v-else><input type="text" :value="trainer.category"></td>
+          <td>{{trainer.lastName}}</td>
+          <td>{{trainer.firstName}}</td>
+          <td>{{trainer.email}}</td>
+          <td>{{trainer.address}}</td>
+          <td>{{trainer.employmentType}}</td>
+          <td>{{trainer.pay}}</td>
+          <td>{{trainer.category}}</td>
           <td>
             <button @click="toggleEdit(trainer.id)" class="btn btn-primary">Bearbeiten</button>
           </td>
