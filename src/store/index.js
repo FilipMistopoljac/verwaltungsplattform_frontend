@@ -6,8 +6,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state:{
+        studentData: {},
     },
     mutations:{
+        setStudentData(state, studentData) {
+            state.studentData = studentData;
+        }
     },
     actions:{
         async postStudent() {
@@ -30,7 +34,7 @@ export default new Vuex.Store({
         async getStudents() {
             try{
                 let apiUrl = 'http://localhost:8080/api/student/get';
-                let response = await this.axios.get(apiUrl);
+                let response = await axios.get(apiUrl);
                 console.log(response);
                 this.studentsList = response.data;
                 console.log(this.studentsList);
@@ -38,13 +42,23 @@ export default new Vuex.Store({
                 console.log(err)
             }
         },
-        async getStudent(studentId) {
+        async getStudent(context, studentId) {
             try{
                 let apiUrl = 'http://localhost:8080/api/student/get/' + studentId;
-                let response = await this.axios.get(apiUrl);
+                let response = await axios.get(apiUrl);
                 console.log(response);
-                this.studentData = response.data;
-                console.log(this.studentData);
+                context.commit("setStudentData", response.data);
+            } catch (err){
+                console.log(err)
+            }
+        },
+        async editStudent(context,studentData) {
+            try{
+                let apiUrl = 'http://localhost:8080/api/student/put/' + studentData.id;
+                await axios.put(apiUrl, studentData);
+                console.log(studentData.id);
+                console.log(studentData.firstName);
+                window.location.reload();
             } catch (err){
                 console.log(err)
             }
@@ -79,10 +93,10 @@ export default new Vuex.Store({
         async getTrainers() {
             try{
                 let apiUrl = 'http://localhost:8080/api/trainer/get';
-                let response = await this.axios.get(apiUrl);
+                let response = await axios.get(apiUrl);
                 console.log(response);
                 this.trainersList = response.data;
-                console.log(this.trainersList);
+                console.log(this.trainersList) ;
             } catch (err){
                 console.log(err)
             }
@@ -90,10 +104,23 @@ export default new Vuex.Store({
         async getTrainer(trainerId) {
             try{
                 let apiUrl = 'http://localhost:8080/api/trainer/get/' + trainerId;
-                let response = await this.axios.get(apiUrl);
+                let response = await axios.get(apiUrl);
                 console.log(response);
                 this.trainerData = response.data;
                 console.log(this.trainerData);
+            } catch (err){
+                console.log(err)
+            }
+        },
+        async editTrainer(trainerId) {
+            try{
+                let apiUrl = 'http://localhost:8080/api/student/put/' + trainerId;
+                await axios.put(apiUrl, {
+                    id: trainerId,
+                    firstName: this.trainerData.firstName,
+                    lastName: this.trainerData.lastName
+                });
+                window.location.reload();
             } catch (err){
                 console.log(err)
             }
@@ -107,6 +134,6 @@ export default new Vuex.Store({
             } catch (err){
                 console.log(err)
             }
-        },
+        }
     }
 })
