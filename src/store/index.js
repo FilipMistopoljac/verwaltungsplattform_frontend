@@ -16,6 +16,9 @@ export default new Vuex.Store({
         },
         setStudentData(state, studentData) {
             state.studentData = studentData;
+        },
+        setStudentId(state, studentId) {
+            state.studentId = studentId;
         }
     },
     actions:{

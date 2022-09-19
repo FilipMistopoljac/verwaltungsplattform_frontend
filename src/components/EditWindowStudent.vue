@@ -35,8 +35,9 @@
     </table>
 
     <div class="container text-center">
-      <button @click="editStudent(this.$store.state.studentId)" class="btn btn-primary">Speichern</button>
+      <button @click="editStudent(studentId)" class="btn btn-primary">Speichern</button>
     </div>
+    <button @click="getStudent(studentId)">Update</button>
 
   </div>
 
@@ -50,6 +51,9 @@ export default {
   computed:{
     student(){
       return this.$store.state.studentData;
+    },
+    studentId() {
+      return this.$store.state.studentId;
     }
   },
   methods: {
@@ -65,9 +69,7 @@ export default {
     }
   },
   mounted() {
-    this.getStudent(this.$store.state.studentId);
   }
-
 }
 </script>
 
