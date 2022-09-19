@@ -43,20 +43,15 @@ import axios from "axios";
 export default {
   name: "StudentTable",
   data: () => ({
-    studentsList:"",
-    editOn: false,
   }),
+  computed:{
+    studentsList(){
+      return this.$store.state.studentsList;
+    }
+  },
   methods: {
     async getStudents() {
-      try{
-        let apiUrl = 'http://localhost:8080/api/student/get';
-        let response = await this.axios.get(apiUrl);
-        console.log(response);
-        this.studentsList = response.data;
-        console.log(this.studentsList);
-      } catch (err){
-        console.log(err)
-      }
+      await this.$store.dispatch("getStudents");
     },
     async deleteStudent(studentId) {
       try{

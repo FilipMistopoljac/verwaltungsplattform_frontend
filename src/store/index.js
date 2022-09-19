@@ -6,9 +6,13 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state:{
+        studentsList: {},
         studentData: {},
     },
     mutations:{
+        setStudentsList(state, studentsList) {
+            state.studentsList = studentsList;
+        },
         setStudentData(state, studentData) {
             state.studentData = studentData;
         }
@@ -31,13 +35,14 @@ export default new Vuex.Store({
                 }
             }
         },
-        async getStudents() {
+        async getStudents(context) {
             try{
                 let apiUrl = 'http://localhost:8080/api/student/get';
                 let response = await axios.get(apiUrl);
                 console.log(response);
                 this.studentsList = response.data;
                 console.log(this.studentsList);
+                context.commit("setStudentsList", response.data);
             } catch (err){
                 console.log(err)
             }
