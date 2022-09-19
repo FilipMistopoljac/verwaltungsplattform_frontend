@@ -35,12 +35,9 @@
     </table>
 
     <div class="container text-center">
-      <button @click="editStudent(5)" class="btn btn-primary">Speichern</button>
+      <button @click="editStudent(this.$store.state.studentId)" class="btn btn-primary">Speichern</button>
     </div>
 
-    <div @click="getStudent(5)">
-      xxxx
-    </div>
   </div>
 
 </template>
@@ -64,11 +61,11 @@ export default {
           id: studentId,
           firstName: this.student.firstName,
           lastName: this.student.lastName
-        })
+        });
     }
   },
   mounted() {
-    this.getStudent(5);
+    this.getStudent(this.$store.state.studentId);
   }
 
 }

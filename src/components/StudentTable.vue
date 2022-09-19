@@ -55,9 +55,9 @@ export default {
       await this.$store.dispatch("deleteStudent", studentId)
     },
     toggleEdit(studentId) {
-      console.log(studentId);
+      this.$store.state.studentId = studentId;
+      console.log(this.$store.state.studentId);
     }
-
   },
   mounted() {
     this.getStudents();

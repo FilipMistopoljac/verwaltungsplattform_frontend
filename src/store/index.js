@@ -8,6 +8,7 @@ export default new Vuex.Store({
     state:{
         studentsList: {},
         studentData: {},
+        studentId: 0
     },
     mutations:{
         setStudentsList(state, studentsList) {
