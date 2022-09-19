@@ -38,8 +38,6 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   name: "StudentTable",
   data: () => ({
@@ -54,15 +52,12 @@ export default {
       await this.$store.dispatch("getStudents");
     },
     async deleteStudent(studentId) {
-      try{
-        let apiUrl = 'http://localhost:8080/api/student/delete/' + studentId;
-        await axios.delete(apiUrl);
-        // console.log("student deleted - " + "First name:" + this.firstName + " Last name:" + this.lastName);
-        window.location.reload();
-      } catch (err){
-        console.log(err)
-      }
+      await this.$store.dispatch("deleteStudent", studentId)
+    },
+    toggleEdit(studentId) {
+      console.log(studentId);
     }
+
   },
   mounted() {
     this.getStudents();
