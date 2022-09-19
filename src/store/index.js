@@ -68,7 +68,7 @@ export default new Vuex.Store({
                 console.log(err)
             }
         },
-        async deleteStudent(studentId) {
+        async deleteStudent(context, studentId) {
             try{
                 let apiUrl = 'http://localhost:8080/api/student/delete/' + studentId;
                 await axios.delete(apiUrl);
