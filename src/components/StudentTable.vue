@@ -4,7 +4,7 @@
     <table class="table table-striped table-bordered table-hover table-sm border border-dark">
       <caption>Liste der Kursteilnehmer</caption>
 
-      <thead>
+      <thead class="tableHead">
         <tr>
           <th scope="col">Vorname</th>
           <th scope="col">Nachname</th>
@@ -21,10 +21,10 @@
           <td></td>
           <td></td>
           <td></td>
-          <td>
+          <td class="buttons">
             <button @click="toggleEdit(student.id)" class="btn btn-primary">Bearbeiten</button>
           </td>
-          <td>
+          <td class="buttons">
             <button @click="deleteStudent(student.id)" class="btn btn-danger">Löschen</button>
           </td>
         </tr>
@@ -66,5 +66,9 @@ export default {
 </script>
 
 <style scoped>
+
+.buttons, .tableHead {
+  text-align: center;
+}
 
 </style>

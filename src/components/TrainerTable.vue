@@ -3,7 +3,7 @@
 
     <table class="table table-striped table-bordered table-hover table-sm">
       <caption>Liste der Trainer</caption>
-      <thead>
+      <thead class="tableHead">
       <tr>
         <th scope="col">Vorname</th>
         <th scope="col">Nachname</th>
@@ -24,10 +24,10 @@
           <td>{{trainer.employmentType}}</td>
           <td>{{trainer.wage}}</td>
           <td>{{trainer.category}}</td>
-          <td>
+          <td class="buttons">
             <button @click="toggleEdit(trainer.id)" class="btn btn-primary">Bearbeiten</button>
           </td>
-          <td>
+          <td class="buttons">
             <button @click="deleteTrainer(trainer.id)" class="btn btn-danger">Löschen</button>
           </td>
         </tr>
@@ -69,5 +69,9 @@ export default {
 </script>
 
 <style scoped>
+
+.buttons, .tableHead {
+  text-align: center;
+}
 
 </style>
