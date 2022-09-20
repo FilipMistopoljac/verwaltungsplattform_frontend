@@ -17,12 +17,12 @@
 
       <tbody>
         <tr v-for="(trainer,i) in trainersList" :key="i" ref="tableRowRef">
-          <td>{{trainer.lastName}}</td>
           <td>{{trainer.firstName}}</td>
+          <td>{{trainer.lastName}}</td>
           <td>{{trainer.email}}</td>
           <td>{{trainer.address}}</td>
           <td>{{trainer.employmentType}}</td>
-          <td>{{trainer.pay}}</td>
+          <td>{{trainer.wage}}</td>
           <td>{{trainer.category}}</td>
           <td>
             <button @click="toggleEdit(trainer.id)" class="btn btn-primary">Bearbeiten</button>
@@ -41,59 +41,25 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   name: "TrainerTable",
   data: () => ({
-    trainersList:"",
-    editOn: false,
   }),
+  computed: {
+    trainersList() {
+      return this.$store.state.trainersList;
+    }
+  },
   methods: {
     async getTrainers() {
-      try{
-        let apiUrl = 'http://localhost:8080/api/trainer/get';
-        let response = await this.axios.get(apiUrl);
-        console.log(response);
-        this.trainersList = response.data;
-        console.log(this.trainersList);
-      } catch (err){
-        console.log(err)
-      }
-    },
-    toggleEdit(trainerId) {
-
-      this.editOn = this.editOn == false;
-      console.log(trainerId);
-
+      await this.$store.dispatch("getTrainers");
     },
     async deleteTrainer(trainerId) {
-      try{
-        let apiUrl = 'http://localhost:8080/api/trainer/delete/' + trainerId;
-        await axios.delete(apiUrl);
-        // console.log("trainer deleted - " + "First name:" + this.firstName + " Last name:" + this.lastName);
-        window.location.reload();
-      } catch (err){
-        console.log(err)
-      }
+      await this.$store.dispatch("deleteTrainer", trainerId);
     },
-    async editTrainer(trainerId) {
-      try{
-        let apiUrl = 'http://localhost:8080/api/trainer/put/' + trainerId;
-        await axios.put(apiUrl, {
-          firstName: this.firstName,
-          lastName: this.lastName,
-          email: this.email,
-          address: this.address,
-          employmentType: this.employmentType,
-          pay: this.pay,
-          category: this.category
-        });
-        window.location.reload();
-      } catch (err){
-        console.log(err)
-      }
-      console.log(trainerId);
+    toggleEdit(trainerId) {
+      this.$store.state.trainerId = trainerId;
+      console.log(this.$store.state.studentId);
     }
   },
   mounted() {

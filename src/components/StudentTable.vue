@@ -6,8 +6,8 @@
 
       <thead>
         <tr>
-          <th scope="col">Nachname</th>
           <th scope="col">Vorname</th>
+          <th scope="col">Nachname</th>
           <th scope="col">Gruppe</th>
           <th scope="col">Raum</th>
           <th scope="col">Anfangsdatum</th>
@@ -16,8 +16,8 @@
 
       <tbody>
         <tr v-for="(student,i) in studentsList" :key="i" ref="tableRowRef">
-          <td>{{student.lastName}}</td>
           <td>{{student.firstName}}</td>
+          <td>{{student.lastName}}</td>
           <td></td>
           <td></td>
           <td></td>
@@ -43,7 +43,7 @@ export default {
   data: () => ({
   }),
   computed:{
-    studentsList(){
+    studentsList() {
       return this.$store.state.studentsList;
     }
   },

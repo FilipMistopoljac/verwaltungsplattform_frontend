@@ -6,12 +6,12 @@
       <tbody>
 
         <tr>
-          <th scope="col">Nachname</th>
+          <th scope="col">Vorname</th>
           <td><input type="text" v-model="student.firstName"></td>
         </tr>
 
         <tr>
-          <th scope="col">Vorname</th>
+          <th scope="col">Nachname</th>
           <td><input type="text" v-model="student.lastName"></td>
         </tr>
 
@@ -58,6 +58,7 @@ export default {
   },
   methods: {
     async getStudent(studentId) {
+      console.log(studentId);
       await this.$store.dispatch("getStudent", studentId);
     },
     async editStudent(studentId) {

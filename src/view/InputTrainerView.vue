@@ -1,13 +1,15 @@
 <template>
   <div>
-
+    <InputFormTrainer></InputFormTrainer>
   </div>
 
 </template>
 
 <script>
+import InputFormTrainer from "@/components/InputFormTrainer";
 export default {
-  name: "InputTrainerView"
+  name: "InputTrainerView",
+  components: {InputFormTrainer}
 }
 </script>
 

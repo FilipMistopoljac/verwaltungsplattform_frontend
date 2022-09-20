@@ -10,36 +10,18 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   name: "InputFormStudent",
   data: () => ({
-    studentsList:"",
     firstName: "",
     lastName: ""
   }),
   methods: {
     async postStudent() {
-      if (confirm('Teilnehmer hinzufügen: ' + this.firstName + ' ' + this.lastName + '?')){
-        try{
-          let apiUrl = 'http://localhost:8080/api/student/add';
-          await axios.post(apiUrl, {
-            firstName: this.firstName,
-            lastName: this.lastName
-          });
-          console.log("student added - " + "First name:" + this.firstName + " Last name:" + this.lastName);
-          alert("Kursteilnehmer hinzugefügt.");
-          window.location.reload();
-
-        } catch (err){
-          console.log(err)
-        }
-      }
-    },
-    checkButton() {
-      console.log('test', this.firstName, this.lastName);
-
+      await this.$store.dispatch("postStudent", {
+        firstName: this.firstName,
+        lastName: this.lastName
+      });
     }
   }
 

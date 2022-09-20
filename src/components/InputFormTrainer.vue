@@ -1,33 +1,56 @@
 <template>
   <div>
-    <form action="">
-      <label for="">Name</label>
-      <input type="text" id="name"><br>
-      <label for="">E-Mail</label>
-      <input type="text" id="email"><br>
-      <label for="">Wohnort</label>
-      <input type="text" id="address"><br>
-      <label for="" id="employmentType">Anstellungsart</label>
-      <input type="text"><br>
-      <label for="" id="pay">Gehalt</label>
-      <input type="text"><br>
-      <label for="" id="category">Kategorie</label>
-      <input type="text"><br>
-      <button v-on:click="postTrainer">Hinzufügen</button>
-    </form>
+    <p>Neu:e Trainer:in hinzufügen:</p>
+    <label for="">Vorname</label>
+    <input type="text" v-model="firstName"><br>
+    <label for="">Nachname</label>
+    <input type="text" v-model="lastName"><br>
+    <button @click="postTrainer">Hinzufügen</button>
+    <label for="">Nachname</label>
+    <input type="text" v-model="lastName"><br>
+    <label for="">Nachname</label>
+    <input type="text" v-model="lastName"><br>
+    <label for="">Nachname</label>
+    <input type="text" v-model="lastName"><br>
+    <label for="">Nachname</label>
+    <input type="text" v-model="lastName"><br>
+    <label for="">Nachname</label>
+    <input type="text" v-model="lastName"><br>
   </div>
 </template>
 
 <script>
 export default {
   name: "InputFormTrainer",
+  data: () => ({
+    firstName: "",
+    lastName: "",
+    email: "",
+    address: "",
+    employmentType: "",
+    wage: "",
+    category: ""
+  }),
+  methods: {
+    async postTrainer() {
+      await this.$store.dispatch("postTrainer", {
+        firstName: this.firstName,
+        lastName: this.lastName,
+        email: this.email,
+        address: this.address,
+        employmentType: this.employmentType,
+        wage: this.wage,
+        category: this.category
+      })
+    }
+  }
 
 }
 </script>
 
 <style scoped>
 
-form {
+div {
   width:300px;
   margin:0 auto;
 }
