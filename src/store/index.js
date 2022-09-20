@@ -122,14 +122,10 @@ export default new Vuex.Store({
                 console.log(err)
             }
         },
-        async editTrainer(trainerId) {
+        async editTrainer(context, trainerData) {
             try{
-                let apiUrl = 'http://localhost:8080/api/student/put/' + trainerId;
-                await axios.put(apiUrl, {
-                    id: trainerId,
-                    firstName: this.trainerData.firstName,
-                    lastName: this.trainerData.lastName
-                });
+                let apiUrl = 'http://localhost:8080/api/trainer/put/' + trainerData.id;
+                await axios.put(apiUrl, trainerData);
                 window.location.reload();
             } catch (err){
                 console.log(err)

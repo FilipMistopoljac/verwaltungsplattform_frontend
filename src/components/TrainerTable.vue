@@ -59,7 +59,7 @@ export default {
     },
     toggleEdit(trainerId) {
       this.$store.state.trainerId = trainerId;
-      console.log(this.$store.state.studentId);
+      console.log(this.$store.state.trainerId);
     }
   },
   mounted() {

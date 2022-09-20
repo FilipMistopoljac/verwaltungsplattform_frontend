@@ -46,8 +46,6 @@
 <script>
 export default {
   name: "EditWindowStudent",
-  data: () => ({
-  }),
   computed:{
     student(){
       return this.$store.state.studentData;
@@ -68,8 +66,6 @@ export default {
           lastName: this.student.lastName
         });
     }
-  },
-  mounted() {
   }
 }
 </script>
