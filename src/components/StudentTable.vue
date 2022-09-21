@@ -54,6 +54,13 @@ export default {
     async deleteStudent(studentId) {
       await this.$store.dispatch("deleteStudent", studentId)
     },
+    async getGroup(groupId) {
+      await this.$store.dispatch("getGroup", groupId)
+    },
+    async getRoom(roomId) {
+      return roomId
+          ;
+    },
     toggleEdit(studentId) {
       this.$store.state.studentId = studentId;
       console.log(this.$store.state.studentId);

@@ -17,7 +17,7 @@
 
         <tr>
           <th scope="col">Gruppe</th>
-          <td><input type="text"></td>
+          <td><input type="text" v-model=""></td>
         </tr>
 
         <tr>
@@ -35,7 +35,7 @@
     </table>
 
     <div class="container text-center">
-      <button @click="editStudent(studentId)" class="btn btn-primary">Speichern</button>
+      <button @click="editStudent(1,studentId)" class="btn btn-primary">Speichern</button>
     </div>
     <button @click="getStudent(studentId)">Update</button>
 
@@ -59,12 +59,16 @@ export default {
       console.log(studentId);
       await this.$store.dispatch("getStudent", studentId);
     },
-    async editStudent(studentId) {
+    async editStudent(groupId, studentId) {
        await this.$store.dispatch("editStudent", {
           id: studentId,
           firstName: this.student.firstName,
           lastName: this.student.lastName
         });
+       await this.$store.dispatch("addStudentToGroup", {
+         groupId: groupId,
+         studentId: studentId
+       })
     }
   }
 }
