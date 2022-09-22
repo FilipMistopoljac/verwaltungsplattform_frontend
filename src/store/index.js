@@ -57,7 +57,7 @@ export default new Vuex.Store({
         },
         async getStudents(context) {
             try{
-                let apiUrl = 'http://localhost:8080/api/student/get';
+                let apiUrl = 'http://localhost:8080/api/student/dto/get';
                 let response = await axios.get(apiUrl);
                 this.studentsList = response.data;
                 context.commit("setStudentsList", response.data);

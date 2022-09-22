@@ -18,8 +18,8 @@
         <tr v-for="(student,i) in studentsList" :key="i" ref="tableRowRef">
           <td>{{student.firstName}}</td>
           <td>{{student.lastName}}</td>
-          <td></td>
-          <td></td>
+          <td>{{student.groupName}}</td>
+          <td>{{student.roomNumber}}</td>
           <td></td>
           <td class="buttons">
             <button @click="toggleEdit(student.id)" class="btn btn-primary">Bearbeiten</button>
@@ -50,6 +50,7 @@ export default {
   methods: {
     async getStudents() {
       await this.$store.dispatch("getStudents");
+      console.log(this.studentsList);
     },
     async deleteStudent(studentId) {
       await this.$store.dispatch("deleteStudent", studentId)

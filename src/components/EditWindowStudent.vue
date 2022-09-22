@@ -17,7 +17,7 @@
 
         <tr>
           <th scope="col">Gruppe</th>
-          <td><input type="text" v-model=""></td>
+          <td><input type="text"></td>
         </tr>
 
         <tr>
