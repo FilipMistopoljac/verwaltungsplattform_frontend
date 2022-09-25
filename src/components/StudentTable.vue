@@ -16,16 +16,33 @@
 
       <tbody>
         <tr v-for="(student,i) in studentsList" :key="i" ref="tableRowRef">
+
           <td>{{student.firstName}}</td>
           <td>{{student.lastName}}</td>
-          <td>{{student.groupName}}</td>
-          <td>{{student.roomNumber}}</td>
-          <td></td>
-          <td class="buttons">
-            <button @click="toggleEdit(student.id)" class="btn btn-primary">Bearbeiten</button>
+
+          <td>
+            <div>
+              {{student.groupName}}
+            </div>
+            <div class="buttons">
+              <button class="btn btn-primary" @click="editGroup()">Gruppe editieren</button>
+            </div>
           </td>
+
+          <td>
+            <div>
+              {{student.roomNumber}}
+            </div>
+          </td>
+
+          <td>
+            <div>
+              {{student.startDate}}
+            </div>
+          </td>
+
           <td class="buttons">
-            <button @click="deleteStudent(student.id)" class="btn btn-danger">Löschen</button>
+            <button @click="deleteStudent(student.studentId)" class="btn btn-danger">Löschen</button>
           </td>
         </tr>
 
@@ -55,16 +72,14 @@ export default {
     async deleteStudent(studentId) {
       await this.$store.dispatch("deleteStudent", studentId)
     },
-    async getGroup(groupId) {
-      await this.$store.dispatch("getGroup", groupId)
-    },
-    async getRoom(roomId) {
-      return roomId
-          ;
-    },
     toggleEdit(studentId) {
       this.$store.state.studentId = studentId;
-      console.log(this.$store.state.studentId);
+    },
+    async editGroup() {
+      await this.$store.dispatch("addStudentToGroup", {
+        groupId: 4,
+        studentId: 10,
+      })
     }
   },
   mounted() {

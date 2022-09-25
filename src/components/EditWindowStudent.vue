@@ -17,17 +17,17 @@
 
         <tr>
           <th scope="col">Gruppe</th>
-          <td><input type="text"></td>
+          <td><input type="text" v-model="student.groupName"></td>
         </tr>
 
         <tr>
           <th scope="col">Raum</th>
-          <td><input type="text"></td>
+          <td><input type="text" v-model="student.roomName"></td>
         </tr>
 
         <tr>
           <th scope="col">Anfangsdatum</th>
-          <td><input type="text"></td>
+          <td><input type="text" v-model="student.startDate"></td>
         </tr>
 
       </tbody>
@@ -46,29 +46,22 @@
 <script>
 export default {
   name: "EditWindowStudent",
-  computed:{
+  computed: {
     student(){
       return this.$store.state.studentData;
     },
     studentId() {
       return this.$store.state.studentId;
+    },
+    studentsList() {
+      return this.$store.state.studentsList;
     }
   },
   methods: {
     async getStudent(studentId) {
       console.log(studentId);
       await this.$store.dispatch("getStudent", studentId);
-    },
-    async editStudent(groupId, studentId) {
-       await this.$store.dispatch("editStudent", {
-          id: studentId,
-          firstName: this.student.firstName,
-          lastName: this.student.lastName
-        });
-       await this.$store.dispatch("addStudentToGroup", {
-         groupId: groupId,
-         studentId: studentId
-       })
+      console.log(this.student);
     }
   }
 }

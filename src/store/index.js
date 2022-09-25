@@ -12,6 +12,7 @@ export default new Vuex.Store({
         trainersList: {},
         trainerData: {},
         trainerId: 0,
+        groupsList: {},
         groupData: {},
         roomData: {}
     },
@@ -39,20 +40,19 @@ export default new Vuex.Store({
         },
         setRoomData(state, roomData) {
             state.roomData = roomData;
+        },
+        setGroupsList(state, groupsList) {
+            state.groupsList = groupsList;
         }
     },
     actions:{
         async postStudent(context, studentData) {
-            if (confirm('Teilnehmer hinzufügen: ' + studentData.firstName + ' ' + studentData.lastName + '?')){
-                try{
-                    let apiUrl = 'http://localhost:8080/api/student/add';
-                    await axios.post(apiUrl, studentData);
-                    alert("Kursteilnehmer hinzugefügt.");
-                    window.location.reload();
-
-                } catch (err){
-                    console.log(err);
-                }
+            try{
+                let apiUrl = 'http://localhost:8080/api/student/add';
+                await axios.post(apiUrl, studentData);
+                alert("Kursteilnehmer hinzugefügt.");
+            } catch (err){
+                console.log(err);
             }
         },
         async getStudents(context) {
@@ -78,19 +78,19 @@ export default new Vuex.Store({
             try{
                 let apiUrl = 'http://localhost:8080/api/student/put/' + studentData.id;
                 await axios.put(apiUrl, studentData);
-                window.location.reload();
             } catch (err){
                 console.log(err);
             }
         },
         async deleteStudent(context, studentId) {
-            try{
-                let apiUrl = 'http://localhost:8080/api/student/delete/' + studentId;
-                await axios.delete(apiUrl);
-                // console.log("student deleted - " + "First name:" + this.firstName + " Last name:" + this.lastName);
-                window.location.reload();
-            } catch (err){
-                console.log(err);
+            if (confirm("Teilnehmer entfernen?")) {
+                try{
+                    let apiUrl = 'http://localhost:8080/api/student/delete/' + studentId;
+                    await axios.delete(apiUrl);
+                    alert("Student deleted");
+                    } catch (err){
+                    console.log(err);
+                }
             }
         },
         async postTrainer(context, trainerData) {
@@ -100,7 +100,6 @@ export default new Vuex.Store({
                     await axios.post(apiUrl, trainerData);
                     console.log("trainer added - " + "First name:" + trainerData.firstName + " Last name:" + trainerData.lastName);
                     alert("Kursteilnehmer hinzugefügt.");
-                    window.location.reload();
 
                 } catch (err){
                     console.log(err);
@@ -133,7 +132,6 @@ export default new Vuex.Store({
             try{
                 let apiUrl = 'http://localhost:8080/api/trainer/put/' + trainerData.id;
                 await axios.put(apiUrl, trainerData);
-                window.location.reload();
             } catch (err){
                 console.log(err);
             }
@@ -143,7 +141,16 @@ export default new Vuex.Store({
                 let apiUrl = 'http://localhost:8080/api/trainer/delete/' + trainerId;
                 await axios.delete(apiUrl);
                 // console.log("trainer deleted - " + "First name:" + this.firstName + " Last name:" + this.lastName);
-                window.location.reload();
+            } catch (err){
+                console.log(err);
+            }
+        },
+        async getGroups(context) {
+            try{
+                let apiUrl = 'http://localhost:8080/api/group/get';
+                let response = await axios.get(apiUrl);
+                this.groupsList = response.data;
+                context.commit("setGroupsList", response.data);
             } catch (err){
                 console.log(err);
             }
@@ -166,7 +173,8 @@ export default new Vuex.Store({
                 console.log(err);
             }
         },
-        async addStudentToGroup(data) {
+        async addStudentToGroup(context, data) {
+            console.log(data.groupId, data.studentId);
             try {
                 let apiUrl = 'http://localhost:8080/api/add-student-to-group/' + data.groupId + '/' + data.studentId;
                 let response = await axios.put(apiUrl);
@@ -174,6 +182,15 @@ export default new Vuex.Store({
             } catch (err) {
                 console.log(err);
 
+            }
+        },
+        async addRoomToGroup(context, data) {
+            try {
+                let apiUrl = 'http://localhost:8080/api/add-student-to-group/' + data.groupId + '/' + data.roomId;
+                let response = await axios.put(apiUrl);
+                console.log(response);
+            } catch (err) {
+                console.log(err);
             }
         }
 
