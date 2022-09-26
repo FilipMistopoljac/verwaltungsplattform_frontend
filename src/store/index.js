@@ -14,7 +14,8 @@ export default new Vuex.Store({
         trainerId: 0,
         groupsList: {},
         groupData: {},
-        roomData: {}
+        roomData: {},
+        roomsList: {}
     },
     mutations:{
         setStudentsList(state, studentsList) {
@@ -43,6 +44,9 @@ export default new Vuex.Store({
         },
         setGroupsList(state, groupsList) {
             state.groupsList = groupsList;
+        },
+        setRoomsList(state, roomsList) {
+            state.roomsList = roomsList;
         }
     },
     actions:{
@@ -170,6 +174,16 @@ export default new Vuex.Store({
                 let response = await axios.get(apiUrl);
                 context.commit("setRoomData", response.data);
             } catch (err) {
+                console.log(err);
+            }
+        },
+        async getRooms(context) {
+            try{
+                let apiUrl = 'http://localhost:8080/api/room/get';
+                let response = await axios.get(apiUrl);
+                this.roomsList = response.data;
+                context.commit("setRoomsList", response.data);
+            } catch (err){
                 console.log(err);
             }
         },

@@ -1,19 +1,34 @@
 <template>
   <div class="sidenav border border-dark">
+
     <img src="../assets/index.png">
-    <a href="#" id="studentsA">TeilnehmerInnen</a>
+
+    <a id="studentsA">TeilnehmerInnen</a>
+
     <div id="studentsDropdown">
       <router-link to="/StudentTableView">Anzeigen</router-link>
       <router-link to="/InputStudentView">Hinzufügen</router-link>
     </div>
-    <a href="#" id="trainersA">TrainerInnen</a>
+
+    <a id="trainersA">TrainerInnen</a>
+
     <div id="trainersDropdown">
       <router-link to="/TrainerTableView">Anzeigen</router-link>
       <router-link to="/InputTrainerView">Hinzufügen</router-link>
     </div>
-    <div>
 
+    <a id="groupsA">Gruppen</a>
+
+    <div id="groupsDropdown">
+      <router-link to="/GroupTableView">Anzeigen</router-link>
     </div>
+
+    <a id="roomsA">Räume</a>
+
+    <div id="roomsDropdown">
+      <router-link to="/RoomTableView">Anzeigen</router-link>
+    </div>
+
   </div>
 </template>
 
@@ -66,15 +81,23 @@ export default  {
   display: block;
 }
 
-#studentsDropdown:hover, #trainersDropdown:hover {
+#groupsA:hover + #groupsDropdown  {
   display: block;
 }
 
-#studentsDropdown, #trainersDropdown {
+#roomsA:hover + #roomsDropdown  {
+  display: block;
+}
+
+#studentsDropdown:hover, #trainersDropdown:hover, #groupsDropdown:hover, #roomsDropdown:hover {
+  display: block;
+}
+
+#studentsDropdown, #trainersDropdown, #groupsDropdown, #roomsDropdown {
   padding-left: 30px;
   display: none;
 }
-#studentsDropdown a, #trainersDropdown a {
+#studentsDropdown a, #trainersDropdown a, #groupsDropdown a, #roomsDropdown a {
   font-size: 120%;
 }
 

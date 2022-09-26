@@ -17,13 +17,21 @@
 
       <tbody>
         <tr v-for="(trainer,i) in trainersList" :key="i" ref="tableRowRef">
+
           <td>{{trainer.firstName}}</td>
+
           <td>{{trainer.lastName}}</td>
+
           <td>{{trainer.email}}</td>
+
           <td>{{trainer.address}}</td>
+
           <td>{{trainer.employmentType}}</td>
+
           <td>{{trainer.wage}}</td>
+
           <td>{{trainer.category}}</td>
+
           <td class="buttons">
             <button @click="toggleEdit(trainer.id)" class="btn btn-primary">Bearbeiten</button>
           </td>

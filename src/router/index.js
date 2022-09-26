@@ -28,6 +28,16 @@ const routes = [
         path: '/TrainerTableView',
         name: 'TrainerTableView',
         component: ()=>import("../view/TrainerTableView")
+    },
+    {
+        path: '/GroupTableView',
+        name: 'GroupTableView',
+        component: () => import("../view/GroupTableView")
+    },
+    {
+        path: '/RoomTableView',
+        name: 'RoomTableView',
+        component: () => import("../view/RoomTableView")
     }
 ]
 
