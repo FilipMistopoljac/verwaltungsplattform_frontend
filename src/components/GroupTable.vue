@@ -29,7 +29,15 @@
         </td>
 
         <td>
-          {{group.trainer}}
+          <div>
+            {{group.trainer}}
+          </div>
+          <div class="editWindow">
+            <select v-model="selectedTrainer">
+              <option v-for="(trainer, i) in trainersList" :key="i" :value="trainer.id">{{trainer.firstName}} {{trainer.lastName}}</option>
+            </select>
+          </div>
+          <button class="btn btn-primary">Editieren</button>
         </td>
 
 
@@ -43,19 +51,30 @@
 <script>
 export default {
   name: "GroupTable",
+  data: () => ({
+    selectedTrainer: ""
+  }),
   computed: {
     groupsList () {
       return this.$store.state.groupsList;
+    },
+    trainersList() {
+      return this.$store.state.trainersList;
     }
   },
   methods: {
     async getGroups() {
       await this.$store.dispatch("getGroups");
       console.log(this.groupsList);
+    },
+    async getTrainers() {
+      await this.$store.dispatch('getTrainers');
+      console.log(this.trainersList);
     }
   },
   mounted() {
     this.getGroups();
+    this.getTrainers();
   }
 }
 </script>

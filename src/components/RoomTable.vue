@@ -2,7 +2,7 @@
   <div class="container">
 
     <table class="table table-striped table-bordered table-hover table-sm border border-dark">
-      <caption>Liste der Gruppen</caption>
+      <caption>Liste der Räume</caption>
 
       <thead>
         <tr>

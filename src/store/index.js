@@ -78,10 +78,12 @@ export default new Vuex.Store({
                 console.log(err);
             }
         },
-        async editStudent(context,studentData) {
+        async editStudent(context,data) {
+            console.log(data.id, data.firstName, data.lastName);
             try{
-                let apiUrl = 'http://localhost:8080/api/student/put/' + studentData.id;
-                await axios.put(apiUrl, studentData);
+                let apiUrl = 'http://localhost:8080/api/student/put/' + data.id;
+                let response = await axios.put(apiUrl, data);
+                console.log(response);
             } catch (err){
                 console.log(err);
             }
@@ -188,7 +190,6 @@ export default new Vuex.Store({
             }
         },
         async addStudentToGroup(context, data) {
-            console.log(data.groupId, data.studentId);
             try {
                 let apiUrl = 'http://localhost:8080/api/add-student-to-group/' + data.groupId + '/' + data.studentId;
                 let response = await axios.put(apiUrl);
@@ -197,6 +198,17 @@ export default new Vuex.Store({
                 console.log(err);
 
             }
+        },
+        async addTrainerToGroup(context, data) {
+            console.log(data.groupId, data.trainerId);
+            try {
+                let apiUrl = 'http://localhost:8080/api/add-trainer-to-group/' + data.groupId + '/' + data.trainerId;
+                let response = await axios.put(apiUrl);
+                console.log(response);
+            } catch (err) {
+                console.log(err);
+            }
+
         },
         async addRoomToGroup(context, data) {
             try {

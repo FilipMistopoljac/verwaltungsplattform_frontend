@@ -17,33 +17,19 @@
       <tbody>
         <tr v-for="(student,i) in studentsList" :key="i" ref="tableRowRef">
 
-          <td>
-              {{student.firstName}}
-            <div class="buttons">
-              <button class="btn btn-primary" @click="editFirstName(student.studentId)">Editieren</button>
-            </div>
-          </td>
+          <td v-if="editBool"><input type="text" v-model="student.firstName"></td>
+          <td v-else>{{student.firstName}}</td>
 
-          <td>
-            <div>
-              {{student.lastName}}
-            </div>
-            <div class="buttons">
-              <button class="btn btn-primary" @click="editLastName(student.studentId)">Editieren</button>
-            </div>
-          </td>
+          <td v-if="editBool"><input type="text" v-model="student.lastName"></td>
+          <td v-else>{{student.lastName}}</td>
 
-          <td>
-            <div>
-              {{student.groupName}}
-            </div>
+
+          <td v-if="!editBool">{{student.groupName}}</td>
+          <td v-else>
             <div class="editWindow">
-              <select v-model="selectedGroup">
-                <option v-for="(option, i) in groupsList" :key="i" :value="option.id">{{option.name}}</option>
+              <select v-model="studentsList[i].val">
+                <option v-for="(option, i) in groupsList" :key="i" :value="option.id" :selected="option.name">{{option.name}}</option>
               </select>
-            </div>
-            <div class="buttons">
-              <button class="btn btn-primary" @click="editGroup(student.studentId)">Editieren</button>
             </div>
           </td>
 
@@ -57,6 +43,11 @@
             <div>
               {{student.startDate}}
             </div>
+          </td>
+
+          <td class="buttons">
+            <button @click="toggleEdit(student.studentId)" class="btn btn-primary">Edit</button>
+            <button @click="editStudent(student.studentId, student.firstName, student.lastName, studentsList[i].val)" class="btn btn-primary">Bearbeiten</button>
           </td>
 
           <td class="buttons">
@@ -76,7 +67,8 @@
 export default {
   name: "StudentTable",
   data: () => ({
-    selectedGroup: ""
+    selectedGroup: "",
+    editBool: false
   }),
   computed:{
     studentsList() {
@@ -94,17 +86,35 @@ export default {
     async deleteStudent(studentId) {
       await this.$store.dispatch("deleteStudent", studentId)
     },
-    async editGroup(studentId) {
+    async editGroup(studentId, groupId) {
       await this.$store.dispatch("addStudentToGroup", {
-        groupId: this.selectedGroup,
+        groupId: groupId,
         studentId: studentId
       })
     },
-    async editFirstName(studentId) {
-      return studentId;
+    toggleEdit() {
+      this.editBool = !this.editBool;
     },
-    async editLastName(studentId) {
-      return studentId;
+    async editStudent(studentId, firstName, lastName, groupId) {
+
+      console.log(studentId, firstName, lastName, groupId);
+
+      await this.$store.dispatch("editStudent", {
+        id: studentId,
+        firstName: firstName,
+        lastName: lastName
+      });
+
+      if (groupId != null) {
+        await this.$store.dispatch("addStudentToGroup", {
+          groupId: groupId,
+          studentId: studentId
+        });
+      }
+
+      this.toggleEdit();
+      location.reload();
+
     },
     async getGroups() {
       await this.$store.dispatch("getGroups");
