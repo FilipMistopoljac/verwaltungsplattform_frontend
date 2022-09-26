@@ -39,11 +39,17 @@
           <td>{{trainer.category}}</td>
 
           <td class="buttons">
-            <button @click="toggleEdit(trainer.id)" class="btn btn-primary">Bearbeiten</button>
+            <button v-if="!editBool" @click="toggleEdit(trainer.trainerId)" class="btn btn-primary">Bearbeiten</button>
+            <div v-else>
+              <button @click="editTrainer(trainer.id, trainer.firstName, trainer.lastName, trainer.email, trainer.address, trainer.employmentType, trainer.wage, trainer.category)" class="btn btn-primary">Speichern</button>
+              <button @click="toggleEdit" class="btn btn-warning">Abbrechen</button>
+            </div>
           </td>
+
           <td class="buttons">
             <button @click="deleteTrainer(trainer.id)" class="btn btn-danger">Löschen</button>
           </td>
+
         </tr>
 
       </tbody>
@@ -76,8 +82,18 @@ export default {
     toggleEdit() {
       this.editBool = !this.editBool;
     },
-    async editTrainer() {
-
+    async editTrainer(trainerId, firstName, lastName, email, address, employmentType, wage, category) {
+      await this.$store.dispatch("editTrainer", {
+        id: trainerId,
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        address: address,
+        employmentType: employmentType,
+        wage: wage,
+        category: category
+      });
+      location.reload();
     }
   },
   mounted() {

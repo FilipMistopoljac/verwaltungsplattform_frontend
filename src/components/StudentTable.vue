@@ -46,13 +46,17 @@
           </td>
 
           <td class="buttons">
-            <button @click="toggleEdit(student.studentId)" class="btn btn-primary">Edit</button>
-            <button @click="editStudent(student.studentId, student.firstName, student.lastName, studentsList[i].val)" class="btn btn-primary">Bearbeiten</button>
+            <button v-if="!editBool" @click="toggleEdit(student.studentId)" class="btn btn-primary">Bearbeiten</button>
+            <div v-else>
+              <button @click="editStudent(student.studentId, student.firstName, student.lastName, studentsList[i].val)" class="btn btn-primary">Speichern</button>
+              <button @click="toggleEdit" class="btn btn-warning">Abbrechen</button>
+            </div>
           </td>
 
           <td class="buttons">
             <button @click="deleteStudent(student.studentId)" class="btn btn-danger">Löschen</button>
           </td>
+
         </tr>
 
       </tbody>

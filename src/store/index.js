@@ -212,13 +212,12 @@ export default new Vuex.Store({
         },
         async addRoomToGroup(context, data) {
             try {
-                let apiUrl = 'http://localhost:8080/api/add-student-to-group/' + data.groupId + '/' + data.roomId;
+                let apiUrl = 'http://localhost:8080/api/add-room-to-group/' + data.groupId + '/' + data.roomId;
                 let response = await axios.put(apiUrl);
                 console.log(response);
             } catch (err) {
                 console.log(err);
             }
         }
-
     }
 })

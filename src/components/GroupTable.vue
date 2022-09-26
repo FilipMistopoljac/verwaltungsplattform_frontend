@@ -4,12 +4,13 @@
     <table class="table table-striped table-bordered table-hover table-sm border border-dark">
       <caption>Liste der Gruppen</caption>
 
-      <thead>
+      <thead class="tableHead">
         <tr>
           <th scope="col">Name</th>
           <th scope="col">Kategorie</th>
           <th scope="col">Startdatum</th>
           <th scope="col">Trainer</th>
+          <th scope="col">Raum</th>
         </tr>
       </thead>
 
@@ -28,18 +29,39 @@
           {{group.startDate}}
         </td>
 
-        <td>
+        <td v-if="!toggleBool">
           <div>
             {{group.trainer}}
           </div>
+        </td>
+        <td v-else>
           <div class="editWindow">
-            <select v-model="selectedTrainer">
-              <option v-for="(trainer, i) in trainersList" :key="i" :value="trainer.id">{{trainer.firstName}} {{trainer.lastName}}</option>
+            <select v-model="trainersList[i].val">
+              <option v-for="(trainer, i) in trainersList" :key="i" :value="trainer.id" :selected="trainer.name">{{trainer.firstName}} {{trainer.lastName}} - {{trainer.category}}</option>
             </select>
           </div>
-          <button class="btn btn-primary">Editieren</button>
         </td>
 
+
+
+        <td v-if="!toggleBool">
+          {{group.room}}
+        </td>
+        <td v-else>
+          <div class="editWindow">
+            <select v-model="roomsList[i].val" >
+              <option v-for="(room, i) in groupsList" :key="i" :value="room.id" :selected="room.number">{{room.number}}</option>
+            </select>
+          </div>
+        </td>
+
+        <td class="buttons">
+          <button v-if="!toggleBool" @click="toggleEdit(group.studentId)" class="btn btn-primary">Bearbeiten</button>
+          <div v-else>
+            <button @click="editRoomOrTrainer(group.id, trainersList[i].val, roomsList[i].val)" class="btn btn-primary">Bearbeiten</button>
+            <button @click="toggleEdit" class="btn btn-warning">Abbrechen</button>
+          </div>
+        </td>
 
       </tr>
       </tbody>
@@ -52,7 +74,8 @@
 export default {
   name: "GroupTable",
   data: () => ({
-    selectedTrainer: ""
+    selectedTrainer: "",
+    toggleBool: false
   }),
   computed: {
     groupsList () {
@@ -60,25 +83,51 @@ export default {
     },
     trainersList() {
       return this.$store.state.trainersList;
+    },
+    roomsList() {
+      return this.$store.state.roomsList;
     }
   },
   methods: {
     async getGroups() {
       await this.$store.dispatch("getGroups");
-      console.log(this.groupsList);
     },
     async getTrainers() {
       await this.$store.dispatch('getTrainers');
-      console.log(this.trainersList);
+    },
+    async getRooms() {
+      await this.$store.dispatch('getRooms');
+      console.log(this.roomsList);
+    },
+    toggleEdit() {
+      this.toggleBool = !this.toggleBool;
+    },
+    async editRoomOrTrainer(groupId, trainerId) {
+      /*
+      await this.$store.dispatch('addRoomToGroup', {
+        groupId: groupId,
+        roomId: roomId
+      });
+       */
+      await this.$store.dispatch('addTrainerToGroup', {
+        groupId: groupId,
+        trainerId: trainerId
+      });
+      location.reload();
     }
   },
   mounted() {
     this.getGroups();
     this.getTrainers();
+    this.getRooms();
   }
 }
 </script>
 
 <style scoped>
+
+.buttons, .tableHead {
+  text-align: center;
+}
 
 </style>
