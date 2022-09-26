@@ -17,15 +17,33 @@
       <tbody>
         <tr v-for="(student,i) in studentsList" :key="i" ref="tableRowRef">
 
-          <td>{{student.firstName}}</td>
-          <td>{{student.lastName}}</td>
+          <td>
+              {{student.firstName}}
+            <div class="buttons">
+              <button class="btn btn-primary" @click="editFirstName(student.studentId)">Editieren</button>
+            </div>
+          </td>
+
+          <td>
+            <div>
+              {{student.lastName}}
+            </div>
+            <div class="buttons">
+              <button class="btn btn-primary" @click="editLastName(student.studentId)">Editieren</button>
+            </div>
+          </td>
 
           <td>
             <div>
               {{student.groupName}}
             </div>
+            <div class="editWindow">
+              <select v-model="selectedGroup">
+                <option v-for="(option, i) in groupsList" :key="i" :value="option.id">{{option.name}}</option>
+              </select>
+            </div>
             <div class="buttons">
-              <button class="btn btn-primary" @click="editGroup()">Gruppe editieren</button>
+              <button class="btn btn-primary" @click="editGroup(student.studentId)">Editieren</button>
             </div>
           </td>
 
@@ -58,10 +76,14 @@
 export default {
   name: "StudentTable",
   data: () => ({
+    selectedGroup: ""
   }),
   computed:{
     studentsList() {
       return this.$store.state.studentsList;
+    },
+    groupsList () {
+      return this.$store.state.groupsList;
     }
   },
   methods: {
@@ -72,18 +94,26 @@ export default {
     async deleteStudent(studentId) {
       await this.$store.dispatch("deleteStudent", studentId)
     },
-    toggleEdit(studentId) {
-      this.$store.state.studentId = studentId;
-    },
-    async editGroup() {
+    async editGroup(studentId) {
       await this.$store.dispatch("addStudentToGroup", {
-        groupId: 4,
-        studentId: 10,
+        groupId: this.selectedGroup,
+        studentId: studentId
       })
+    },
+    async editFirstName(studentId) {
+      return studentId;
+    },
+    async editLastName(studentId) {
+      return studentId;
+    },
+    async getGroups() {
+      await this.$store.dispatch("getGroups");
+      console.log(this.groupsList);
     }
   },
   mounted() {
     this.getStudents();
+    this.getGroups();
   }
 }
 </script>
