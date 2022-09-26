@@ -18,17 +18,23 @@
       <tbody>
         <tr v-for="(trainer,i) in trainersList" :key="i" ref="tableRowRef">
 
-          <td>{{trainer.firstName}}</td>
+          <td v-if="editBool" ><input type="text" v-model="trainer.firstName"></td>
+          <td v-else>{{trainer.firstName}}</td>
 
-          <td>{{trainer.lastName}}</td>
+          <td v-if="editBool"><input type="text" v-model="trainer.lastName"></td>
+          <td v-else>{{trainer.lastName}}</td>
 
-          <td>{{trainer.email}}</td>
+          <td v-if="editBool"><input type="text" v-model="trainer.email"></td>
+          <td v-else>{{trainer.email}}</td>
 
-          <td>{{trainer.address}}</td>
+          <td v-if="editBool"><input type="text" v-model="trainer.address"></td>
+          <td v-else>{{trainer.address}}</td>
 
-          <td>{{trainer.employmentType}}</td>
+          <td v-if="editBool"><input type="text" v-model="trainer.employmentType"></td>
+          <td v-else>{{trainer.employmentType}}</td>
 
-          <td>{{trainer.wage}}</td>
+          <td v-if="editBool"><input type="text" v-model="trainer.wage"></td>
+          <td v-else>{{trainer.wage}}</td>
 
           <td>{{trainer.category}}</td>
 
@@ -52,6 +58,7 @@
 export default {
   name: "TrainerTable",
   data: () => ({
+    editBool: false
   }),
   computed: {
     trainersList() {
@@ -64,10 +71,13 @@ export default {
     },
     async deleteTrainer(trainerId) {
       await this.$store.dispatch("deleteTrainer", trainerId);
+      location.reload();
     },
-    toggleEdit(trainerId) {
-      this.$store.state.trainerId = trainerId;
-      console.log(this.$store.state.trainerId);
+    toggleEdit() {
+      this.editBool = !this.editBool;
+    },
+    async editTrainer() {
+
     }
   },
   mounted() {
