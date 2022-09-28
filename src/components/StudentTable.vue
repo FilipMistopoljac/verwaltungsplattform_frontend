@@ -72,7 +72,8 @@ export default {
   name: "StudentTable",
   data: () => ({
     selectedGroup: "",
-    editBool: false
+    editBool: false,
+    buttonId: ""
   }),
   computed:{
     studentsList() {
@@ -96,8 +97,10 @@ export default {
         studentId: studentId
       })
     },
-    toggleEdit() {
+    toggleEdit(id) {
+      this.buttonId = id;
       this.editBool = !this.editBool;
+
     },
     async editStudent(studentId, firstName, lastName, groupId) {
 
@@ -117,8 +120,8 @@ export default {
       }
 
       this.toggleEdit();
-      location.reload();
 
+      location.reload();
     },
     async getGroups() {
       await this.$store.dispatch("getGroups");

@@ -156,6 +156,7 @@ export default new Vuex.Store({
                 let apiUrl = 'http://localhost:8080/api/group/get';
                 let response = await axios.get(apiUrl);
                 this.groupsList = response.data;
+                console.log(response)
                 context.commit("setGroupsList", response.data);
             } catch (err){
                 console.log(err);

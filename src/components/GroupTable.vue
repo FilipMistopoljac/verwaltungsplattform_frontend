@@ -30,9 +30,13 @@
         </td>
 
         <td v-if="!toggleBool">
-          <div>
-            {{group.trainer}}
+          <div v-if="group.trainer">
+            {{ group.trainer.firstName + " " + group.trainer.lastName }}
           </div>
+          <div v-else>
+            Keine Trainer_in zugeteilt.
+          </div>
+
         </td>
         <td v-else>
           <div class="editWindow">
@@ -45,12 +49,19 @@
 
 
         <td v-if="!toggleBool">
-          {{group.room}}
+          <div v-if="group.room">
+            {{group.room.number + ' ' + group.room.namesake}}
+          </div>
+
+          <div v-else>
+            Kein Raum zugeteilt.
+          </div>
+
         </td>
         <td v-else>
           <div class="editWindow">
             <select v-model="roomsList[i].val" >
-              <option v-for="(room, i) in groupsList" :key="i" :value="room.id" :selected="room.number">{{room.number}}</option>
+              <option v-for="(room, i) in roomsList" :key="i" :value="room.id" :selected="room.number">{{room.number + ' ' + room.namesake}}</option>
             </select>
           </div>
         </td>
@@ -102,13 +113,13 @@ export default {
     toggleEdit() {
       this.toggleBool = !this.toggleBool;
     },
-    async editRoomOrTrainer(groupId, trainerId) {
-      /*
+    async editRoomOrTrainer(groupId, trainerId, roomId) {
+
       await this.$store.dispatch('addRoomToGroup', {
         groupId: groupId,
         roomId: roomId
       });
-       */
+
       await this.$store.dispatch('addTrainerToGroup', {
         groupId: groupId,
         trainerId: trainerId
