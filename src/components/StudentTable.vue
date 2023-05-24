@@ -17,14 +17,14 @@
       <tbody>
         <tr v-for="(student,i) in studentsList" :key="i" ref="tableRowRef">
 
-          <td v-if="editBool"><input type="text" v-model="student.firstName"></td>
+          <td v-if="studentsList[i].edit"> <input type="text" v-model="student.firstName" ></td>
           <td v-else>{{student.firstName}}</td>
 
-          <td v-if="editBool"><input type="text" v-model="student.lastName"></td>
+          <td v-if="studentsList[i].edit"><input type="text" v-model="student.lastName"></td>
           <td v-else>{{student.lastName}}</td>
 
 
-          <td v-if="!editBool">{{student.groupName}}</td>
+          <td v-if="!studentsList[i].edit">{{student.groupName}}</td>
           <td v-else>
             <div class="editWindow">
               <select v-model="studentsList[i].val">
@@ -46,17 +46,17 @@
           </td>
 
           <td class="buttons">
-            <button v-if="!editBool" @click="toggleEdit(student.studentId)" class="btn btn-primary">Bearbeiten</button>
+            <button v-if="!studentsList[i].edit" @click="editElement(i)" class="btn btn-primary">Bearbeiten</button>
             <div v-else>
               <button @click="editStudent(student.studentId, student.firstName, student.lastName, studentsList[i].val)" class="btn btn-primary">Speichern</button>
-              <button @click="toggleEdit" class="btn btn-warning">Abbrechen</button>
+<!--              <button @click="toggleEdit" class="btn btn-warning">Abbrechen</button>-->
+              <button @click="studentsList[i].edit = false" class="btn btn-warning">Abbrechen</button>
             </div>
           </td>
 
           <td class="buttons">
             <button @click="deleteStudent(student.studentId)" class="btn btn-danger">Löschen</button>
           </td>
-
         </tr>
 
       </tbody>
@@ -73,7 +73,7 @@ export default {
   data: () => ({
     selectedGroup: "",
     editBool: false,
-    buttonId: ""
+    buttonId: "",
   }),
   computed:{
     studentsList() {
@@ -126,7 +126,11 @@ export default {
     async getGroups() {
       await this.$store.dispatch("getGroups");
       console.log(this.groupsList);
-    }
+    },
+      editElement(indexOfLine){
+
+        this.$store.state.studentsList[indexOfLine].edit = true
+      }
   },
   mounted() {
     this.getStudents();

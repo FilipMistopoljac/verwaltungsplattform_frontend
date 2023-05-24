@@ -19,7 +19,12 @@ export default new Vuex.Store({
     },
     mutations:{
         setStudentsList(state, studentsList) {
+
+            studentsList.forEach((student) => {
+                student.edit = false
+            })
             state.studentsList = studentsList;
+            console.log(studentsList)
         },
         setStudentData(state, studentData) {
             state.studentData = studentData;
